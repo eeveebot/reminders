@@ -206,7 +206,7 @@ export async function handleEditReminder(
     reply(
       ctx,
       data,
-      `${data.nick}: updated reminder #${shortId(row.id)}: ${oldWhen(row)} → ${newWhen}, text replaced`
+      `${data.nick}: updated reminder ${shortId(row.id)}: ${oldWhen(row)} → ${newWhen}, text replaced`
     );
     return 'success';
   } catch (error) {

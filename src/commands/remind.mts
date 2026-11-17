@@ -176,8 +176,8 @@ export async function handleRemind(
 
     const confirmation =
       due.kind === 'cron'
-        ? `${data.nick}: recurring reminder #${shortId(id)} set for cron "${due.cronExpr}" ${tz} — next fire ${due.localDisplay} (${due.utcDisplay})`
-        : `${data.nick}: reminder #${shortId(id)} set for ${due.localDisplay} (${due.utcDisplay})`;
+        ? `${data.nick}: recurring reminder ${shortId(id)} set for cron "${due.cronExpr}" ${tz} — next fire ${due.localDisplay} (${due.utcDisplay})`
+        : `${data.nick}: reminder ${shortId(id)} set for ${due.localDisplay} (${due.utcDisplay})`;
     reply(ctx, data, confirmation);
     return 'success';
   } catch (error) {

@@ -7,6 +7,8 @@
 import fs from 'node:fs';
 import { randomUUID } from 'node:crypto';
 
+import { DateTime } from 'luxon';
+
 import {
   NatsClient,
   RateLimitConfig,
@@ -34,6 +36,7 @@ import {
   countAllActive,
   findAllActive,
   getReminderById,
+  getUserTz,
   initDatabase,
   markDelivered,
   scheduleNext,
@@ -42,6 +45,7 @@ import { humanizeDuration, nextCronRun } from './lib/parse-time.mjs';
 import { armTimer, clearAllTimers, setFireHandler } from './lib/scheduler.mjs';
 import {
   CommandData,
+  DEFAULT_TZ,
   ModuleContext,
   RemindersConfig,
   isDmRequest,
@@ -131,6 +135,18 @@ function deliver(row: ReminderRow, delayMarker: string | null): void {
   }
   if (row.deliverVia !== 'announcement') {
     text = `${row.creatorNick}: ${text}`;
+  }
+  // Suffix with the request time — except recurring announcements, where a
+  // stale creation date is noise rather than context.
+  if (!(row.deliverVia === 'announcement' && row.kind === 'cron')) {
+    const creatorTz =
+      getUserTz(row.platform, row.network, row.instance, row.creatorIdent) ??
+      remindersConfig.defaultTz ??
+      DEFAULT_TZ;
+    const requestedAt = DateTime.fromISO(row.createdDate)
+      .setZone(creatorTz)
+      .toFormat('yyyy-MM-dd HH:mm');
+    text = `${text} (reminder requested at ${requestedAt} ${creatorTz})`;
   }
   void sendChatMessage(
     nats,

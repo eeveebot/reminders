@@ -82,7 +82,7 @@ export async function handleCancelReminder(
   reply(
     ctx,
     data,
-    `${data.nick}: cancelled reminder #${shortId(row.id)} — "${row.text}"`
+    `${data.nick}: cancelled reminder ${shortId(row.id)} — "${row.text}"`
   );
   return 'success';
 }

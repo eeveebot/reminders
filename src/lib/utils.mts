@@ -203,7 +203,9 @@ export function formatWhen(row: ReminderRow, displayTz: string): string {
   return `${due.toFormat('yyyy-MM-dd HH:mm')} ${displayTz}`;
 }
 
-// One line per reminder for list output: "#id [via] when — "text"".
+// One line per reminder for list output: "id [target] when — "text"",
+// where target is the delivery channel, or "private" for DMs.
 export function formatReminderRow(row: ReminderRow, displayTz: string): string {
-  return `#${shortId(row.id)} [${row.deliverVia}] ${formatWhen(row, displayTz)} — "${row.text}"`;
+  const target = isDmRow(row) ? 'private' : row.channel;
+  return `${shortId(row.id)} [${target}] ${formatWhen(row, displayTz)} — "${row.text}"`;
 }
