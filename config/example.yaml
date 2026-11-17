@@ -1,0 +1,21 @@
+# Example reminders module configuration
+
+# Rate limit configuration
+ratelimit:
+  mode: drop
+  level: user
+  limit: 5
+  interval: 1m
+
+# Default timezone (IANA name) applied when a user has no tz preference
+defaultTz: "Etc/UTC"
+
+# Maximum relative-time horizon, in days ("remind 400d" is rejected when set to 366)
+maxHorizonDays: 366
+
+# Maximum active reminders per user (creation and edit both respect the cap)
+maxRemindersPerUser: 500
+
+# Optional SQLite database path override
+# (defaults to ${MODULE_DATA}/reminders.db, the standard module volume)
+# dbPath: "./reminders.db"

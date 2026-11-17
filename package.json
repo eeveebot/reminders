@@ -1,0 +1,41 @@
+{
+  "name": "@eeveebot/reminders",
+  "version": "0.2.0",
+  "type": "module",
+  "description": "the eevee reminders module",
+  "keywords": [
+    "eevee"
+  ],
+  "main": "dist/main.mjs",
+  "engines": {
+    "node": ">=24.0.0"
+  },
+  "scripts": {
+    "test": "npx eslint src/",
+    "build": "npm run test && npx tsc",
+    "dev": "npm run build && node dist/main.mjs",
+    "update-libraries": "npm install --save @eeveebot/libeevee@latest"
+  },
+  "devDependencies": {
+    "@eslint/eslintrc": "^3.3.5",
+    "@types/better-sqlite3": "^7.6.13",
+    "@types/luxon": "^3.7.6",
+    "@types/node": "^18.19.130",
+    "@types/ws": "^8.18.1",
+    "@typescript-eslint/eslint-plugin": "^8.57.0",
+    "@typescript-eslint/parser": "^8.57.0",
+    "eslint": "^9.39.4",
+    "globals": "^17.4.0",
+    "prettier": "^3.8.1",
+    "typescript": "^5.9.3"
+  },
+  "dependencies": {
+    "@eeveebot/libeevee": "^4.3.0",
+    "better-sqlite3": "^12.8.0",
+    "cron-parser": "^5.10.6",
+    "luxon": "^3.7.2"
+  },
+  "allowScripts": {
+    "better-sqlite3@12.11.1": true
+  }
+}
